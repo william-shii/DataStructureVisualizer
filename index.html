@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Structure Visualizer</title>
+  <meta name="description" content="Watch linked lists, stacks and queues change one line of Java at a time.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">Linked lists · Stacks · Queues</p>
+      <h1>Data Structure Visualizer</h1>
+      <p class="lede">Pick an operation and watch the nodes and arrows change, one line of Java at a time.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Tabs to switch between the three data structures -->
+    <div class="tabs" role="tablist" aria-label="Data structure">
+      <button class="tab" role="tab" data-tab="linked-list" aria-selected="true">Linked list</button>
+      <button class="tab" role="tab" data-tab="stack" aria-selected="false">Stack</button>
+      <button class="tab" role="tab" data-tab="queue" aria-selected="false">Queue</button>
+    </div>
+
+    <!-- Playback settings shared by every tab -->
+    <div class="player">
+      <label class="speed">
+        <span>Speed</span>
+        <input id="speed" type="range" min="1" max="5" value="3" aria-label="Animation speed">
+      </label>
+      <label class="check">
+        <input id="step-mode" type="checkbox">
+        <span>Step through one line at a time</span>
+      </label>
+      <button id="next-step" class="primary" disabled>Next line →</button>
+    </div>
+
+    <!-- ============ LINKED LIST ============ -->
+    <section class="panel" id="panel-linked-list" role="tabpanel">
+      <div class="controls">
+        <label class="field"><span>Value</span><input id="ll-value" type="text" inputmode="numeric" maxlength="4" value="7"></label>
+        <button class="op" id="ll-insert-front">Insert at front</button>
+        <button class="op" id="ll-insert-end">Insert at end</button>
+        <span class="divider" aria-hidden="true"></span>
+        <label class="field"><span>After</span><input id="ll-after" type="text" inputmode="numeric" maxlength="4" value="8"></label>
+        <button class="op" id="ll-insert-after">Insert after</button>
+        <span class="divider" aria-hidden="true"></span>
+        <button class="op danger" id="ll-remove">Remove value</button>
+        <button class="op ghost" id="ll-reset">Reset</button>
+      </div>
+      <div class="explain" aria-live="polite">
+        <p class="msg" id="ll-msg"></p>
+        <p class="result" id="ll-result"></p>
+      </div>
+      <div class="workspace">
+        <div class="stage-wrap"><div class="stage horizontal" id="ll-stage"></div></div>
+        <aside class="side">
+          <div class="card">
+            <div class="card-title" id="ll-code-title"></div>
+            <ol class="code" id="ll-code"></ol>
+          </div>
+          <div class="card">
+            <div class="card-title">Variables</div>
+            <ul class="vars" id="ll-vars"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ STACK ============ -->
+    <section class="panel" id="panel-stack" role="tabpanel" hidden>
+      <div class="controls">
+        <label class="field"><span>Value</span><input id="st-value" type="text" inputmode="numeric" maxlength="4" value="9"></label>
+        <button class="op" id="st-push">Push</button>
+        <button class="op" id="st-pop">Pop</button>
+        <button class="op" id="st-peek">Peek</button>
+        <button class="op ghost" id="st-reset">Reset</button>
+      </div>
+      <div class="explain" aria-live="polite">
+        <p class="msg" id="st-msg"></p>
+        <p class="result" id="st-result"></p>
+      </div>
+      <div class="workspace">
+        <div class="stage-wrap"><div class="stage vertical" id="st-stage"></div></div>
+        <aside class="side">
+          <div class="card">
+            <div class="card-title" id="st-code-title"></div>
+            <ol class="code" id="st-code"></ol>
+          </div>
+          <div class="card">
+            <div class="card-title">Variables</div>
+            <ul class="vars" id="st-vars"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ QUEUE ============ -->
+    <section class="panel" id="panel-queue" role="tabpanel" hidden>
+      <div class="controls">
+        <label class="field"><span>Value</span><input id="qu-value" type="text" inputmode="numeric" maxlength="4" value="6"></label>
+        <button class="op" id="qu-enqueue">Enqueue</button>
+        <button class="op" id="qu-dequeue">Dequeue</button>
+        <button class="op ghost" id="qu-reset">Reset</button>
+      </div>
+      <div class="explain" aria-live="polite">
+        <p class="msg" id="qu-msg"></p>
+        <p class="result" id="qu-result"></p>
+      </div>
+      <div class="workspace">
+        <div class="stage-wrap"><div class="stage horizontal" id="qu-stage"></div></div>
+        <aside class="side">
+          <div class="card">
+            <div class="card-title" id="qu-code-title"></div>
+            <ol class="code" id="qu-code"></ol>
+          </div>
+          <div class="card">
+            <div class="card-title">Variables</div>
+            <ul class="vars" id="qu-vars"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Key for the colours used on the nodes -->
+    <ul class="legend">
+      <li><span class="swatch new"></span>new node</li>
+      <li><span class="swatch found"></span>node found</li>
+      <li><span class="swatch removed"></span>being removed</li>
+      <li><span class="swatch gone"></span>nothing points to it</li>
+    </ul>
+  </main>
+
+  <footer class="wrap site-footer">
+    Built by William Shi with HTML, CSS and JavaScript. The Java code follows the <code>LinearNode</code> style used in intro data structures courses.
+  </footer>
+
+  <!-- Plain scripts (not modules) so the page also works when opened straight from a folder -->
+  <script src="js/visualizer.js"></script>
+  <script src="js/linkedlist.js"></script>
+  <script src="js/stack.js"></script>
+  <script src="js/queue.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
